@@ -92,8 +92,8 @@
     padding-bottom:8px;
     border-bottom:1px solid var(--line);
   }
-  .weekday-row div:nth-child(6){ color:#4E7DB5; }
-  .weekday-row div:nth-child(7){ color:#B5544E; }
+  .weekday-row div:nth-child(1){ color:#B5544E; }
+  .weekday-row div:nth-child(7){ color:#4E7DB5; }
 
   .grid{
     display:grid;
@@ -270,7 +270,7 @@
     </div>
     <div class="month-sub"></div>
     <div class="weekday-row">
-      <div>월</div><div>화</div><div>수</div><div>목</div><div>금</div><div>토</div><div>일</div>
+      <div>일</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div><div>토</div>
     </div>
     <div id="calendar-grid" class="grid"></div>
     <p class="hint" id="loading-msg">일정을 불러오는 중...</p>
@@ -436,9 +436,10 @@ function renderCalendar(year, month){
   grid.innerHTML = "";
 
   const firstOfMonth = new Date(year, month-1, 1);
-  // JS: 0=일,1=월... 월요일 시작 기준으로 변환 (0=월 ... 6=일)
+  // JS: 0=일,1=월... 6=토
+  // 일요일 시작이므로 getDay() 값을 그대로 사용
   const jsDay = firstOfMonth.getDay();
-  const leadingEmpty = (jsDay === 0) ? 6 : jsDay - 1;
+  const leadingEmpty = jsDay;
 
   const daysInMonth = new Date(year, month, 0).getDate();
   const daysInPrevMonth = new Date(year, month-1, 0).getDate();
@@ -472,9 +473,9 @@ function renderCalendar(year, month){
       cellYear = year;
     }
 
-    const colIndex = i % 7; // 0=월 ... 5=토, 6=일
-    if(colIndex === 5) cell.classList.add("sat");
-    if(colIndex === 6) cell.classList.add("sun");
+    const colIndex = i % 7; // 0=일 ... 5=금, 6=토
+    if(colIndex === 0) cell.classList.add("sun");
+    if(colIndex === 6) cell.classList.add("sat");
     if(isPad) cell.classList.add("pad");
 
     const dateKey = buildKey(cellYear, cellMonth, dayNum);
