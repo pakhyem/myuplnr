@@ -414,8 +414,6 @@ async function loadFromSheetIfConfigured(){
 
 function renderMonthTitle(year, month){
   document.getElementById("month-title").innerHTML = `${year}<span>.</span>${pad(month)}`;
-  const monthSub = document.querySelector(".month-sub");
-  if(monthSub) monthSub.textContent = `${year}년 ${month}월`;
 }
 
 function goToMonth(year, month){
