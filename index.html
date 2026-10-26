@@ -339,10 +339,10 @@ const TITLE_PALETTE = [
   { text:"#a61782", bg:"#fae1f4", border:"#b8b8b8" }, // 진분홍
   { text:"#dbeaff", bg:"#61a3ff", border:"#E3e3e3" }, // amber
   { text:"#FFFFFF", bg:"#2563EB", border:"#1B4FC4" }, // 3. blue
-  { text:"#FFFFFF", bg:"#1F8A3B", border:"#186E2F" }, // 4. 초록
-  { text:"#FFFFFF", bg:"#D9480F", border:"#B03B0C" }, // 5. 주황 (붉은 오렌지)
+  { text:"#FFFFFF", bg:"#6BC282", border:"#186E2F" }, // 4. 초록
+  { text:"#FFFFFF", bg:"#EB906C", border:"#B03B0C" }, // 5. 주황 (붉은 오렌지)
   { text:"#FFFFFF", bg:"#6B7280", border:"#555B66" }, // 6. 회색
-  { text:"#4A4100", bg:"#FFE74A", border:"#E6CC20" }, // 7. 노란색 (레몬)
+  { text:"#4A4100", bg:"#FFF5B5", border:"#E6CC20" }, // 7. 노란색 (레몬)
   { text:"#25194D", bg:"#B8A1F5", border:"#9F85E6" }, // 8. 연보라색
   { text:"#00332E", bg:"#00BFB0", border:"#009C90" }  // 9. jade (밝은 청록)
 ];
@@ -374,11 +374,11 @@ function parseCsvToEvents(csvText){
   for(let i=1; i<lines.length; i++){
     const cols = lines[i].split(",").map(c => c.trim());
     const date = cols[idx.date];
-    const time = cols[idx.time];
+    const time = cols[idx.time] || "";
     const title = cols[idx.title];
     const name = cols[idx.name];
     const note = cols[idx.note];
-    if(!date || !time || !title || !name) continue;
+    if(!date || !title || !name) continue;
     const key = `${date}__${time}__${title}`;
     if(!byKey[key]){
       byKey[key] = { date, time, title, names: [], note: note || ""};
@@ -498,7 +498,7 @@ function renderCalendar(year, month){
         btn.style.background = color.bg;
         btn.style.borderColor = color.border;
         btn.style.color = color.text;
-        btn.innerHTML = `<span class="t">${ev.time}</span><span class="n">${ev.title}</span>`;
+        btn.innerHTML = (ev.time ? `<span class="t">${ev.time}</span>` : "") + `<span class="n">${ev.title}</span>`;
         btn.addEventListener("click", () => openSheet(ev));
         list.appendChild(btn);
       });
@@ -517,8 +517,10 @@ function formatDateKorean(dateStr){
 }
 
 function formatTimePadded(timeStr){
-  const [h,mi] = timeStr.split(":").map(Number);
-  return `${pad(h)}:${pad(mi)}`;
+  if(!timeStr) return "";
+  const m = timeStr.match(/^(\d{1,2}):(\d{2})$/);
+  if(!m) return timeStr;
+  return `${pad(Number(m[1]))}:${m[2]}`;
 }
 
 const overlay = document.getElementById("overlay");
