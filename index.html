@@ -336,14 +336,15 @@ function groupEventsByDate(list){
 
 // 공연(title)마다 다른 색을 순서대로 배정
 const TITLE_PALETTE = [
-  { text:"#a61782", bg:"#fae1f4", border:"#b8b8b8" }, // teal
+  { text:"#a61782", bg:"#fae1f4", border:"#b8b8b8" }, // 진분홍
   { text:"#dbeaff", bg:"#61a3ff", border:"#E3e3e3" }, // amber
-  { text:"#3F7A2E", bg:"#E3F1DC", border:"#C5E3B8" }, // green
-  { text:"#A6470F", bg:"#FCE3D0", border:"#F3C6A4" }, // orange
-  { text:"#4A5563", bg:"#ECEEF1", border:"#D3D8DE" }, // gray
-  { text:"#6E6200", bg:"#FFF8BF", border:"#F0E27F" }, // yellow
-  { text:"#6B4FA3", bg:"#EEE8FA", border:"#D8CCF0" }, // purple
-  { text:"#0B7A55", bg:"#D3F5E5", border:"#A6E6CB" }  // jade
+  { text:"#FFFFFF", bg:"#2563EB", border:"#1B4FC4" }, // 3. blue
+  { text:"#FFFFFF", bg:"#1F8A3B", border:"#186E2F" }, // 4. 초록
+  { text:"#FFFFFF", bg:"#D9480F", border:"#B03B0C" }, // 5. 주황 (붉은 오렌지)
+  { text:"#FFFFFF", bg:"#6B7280", border:"#555B66" }, // 6. 회색
+  { text:"#4A4100", bg:"#FFE74A", border:"#E6CC20" }, // 7. 노란색 (레몬)
+  { text:"#25194D", bg:"#B8A1F5", border:"#9F85E6" }, // 8. 연보라색
+  { text:"#00332E", bg:"#00BFB0", border:"#009C90" }  // 9. jade (밝은 청록)
 ];
 
 function buildTitleColorMap(list){
